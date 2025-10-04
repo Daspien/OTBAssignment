@@ -8,9 +8,6 @@ namespace OTBAssignment.Helpers
         {
             {
                 Airport.LND, [Airport.LGW, Airport.LTN] 
-            },
-            {
-                Airport.ANY, [Airport.LTN, Airport.LGW, Airport.PMI, Airport.AGP, Airport.MAN, Airport.TFS, Airport.LPA]
             }
         };
 

@@ -36,7 +36,10 @@ namespace OTBAssignment.Model.Hotels
             if (hotels is null)
                 return new List<HotelData>().AsQueryable();
 
-            var bestHotels = hotels.Where(hotel => hotel.LocalAirports.Any(localAirport => AirportHelper.GetCombinedAirports(options.Destination).Contains(localAirport)) && hotel.ArrivalDate == options.DepartureDate && hotel.Nights == options.Duration).
+            var bestHotels = hotels.Where(hotel => 
+            (options.Destination == Airport.ANY || hotel.LocalAirports.Any(localAirport => AirportHelper.GetCombinedAirports(options.Destination).Contains(localAirport))) && 
+            hotel.ArrivalDate == options.DepartureDate && 
+            hotel.Nights == options.Duration).
                 OrderBy(hotel => hotel.PricePerNight);
 
             return bestHotels.AsQueryable();

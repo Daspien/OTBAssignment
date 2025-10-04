@@ -1,9 +1,5 @@
 ﻿using OTBAssignment.Model;
-using Newtonsoft.Json;
 using OTBAssignment.Model.JsonModel;
-using Newtonsoft.Json.Converters;
-using OTBAssignment.Helpers;
-using System.Linq;
 using OTBAssignment.Model.Flights;
 using OTBAssignment.Model.Hotels;
 
@@ -13,12 +9,23 @@ namespace OTBAssignment
     {
         public async Task<IEnumerable<HolidaySearchResult>> GetResults(Airport departingFrom, Airport travelingTo, DateTime departureDate, short duration)
         {
-            var results = new List<HolidaySearchResult>();
             var bestHotels = await hotelProvider.GetBestHotels(GetHotelOptions(travelingTo, departureDate, duration));
             var bestFlights = await flightProvider.GetBestFlights(GetFlightOptions(departingFrom, travelingTo, departureDate));
-            var holidaySearchResult = new HolidaySearchResult(bestHotels.First().PricePerNight * duration, GetFlightInfo(bestFlights.First().Id, bestFlights.First().From, bestFlights.First().To), GetHotelInfo(bestHotels.First().Id, bestHotels.First().Name, bestHotels.First().PricePerNight));
-            results.Add(holidaySearchResult);
-            return results;
+            return await GetAllResultsSorted(bestHotels, bestFlights, duration);
+        }
+
+        private Task<IEnumerable<HolidaySearchResult>> GetAllResultsSorted(IQueryable<HotelData> hotels, IQueryable<FlightData> flights, short duration)
+        {
+            var results = new List<HolidaySearchResult>();
+            foreach (var hotel in hotels)
+            {
+                foreach (var flight in flights)
+                {
+                    var holidaySearchResult = new HolidaySearchResult(hotel.PricePerNight * duration, GetFlightInfo(flight.Id, flight.From, flight.To), GetHotelInfo(hotel.Id, hotel.Name, hotel.PricePerNight));
+                    results.Add(holidaySearchResult);
+                }
+            }
+            return Task.FromResult(results.AsEnumerable());
         }
 
         private FlightInfo GetFlightInfo(int id, Airport from, Airport to)

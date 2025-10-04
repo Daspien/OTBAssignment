@@ -36,7 +36,10 @@ namespace OTBAssignment.Model.Flights
             if (flights is null)
                 return new List<FlightData>().AsQueryable();
 
-            var bestFlights = flights.Where(flight => AirportHelper.GetCombinedAirports(options.From).Contains(flight.From) && AirportHelper.GetCombinedAirports(options.To).Contains(flight.To) && options.DepartureDate == flight.DepartureDate).
+            var bestFlights = flights.Where(flight => 
+                (options.From == Airport.ANY || AirportHelper.GetCombinedAirports(options.From).Contains(flight.From)) &&
+                (options.To == Airport.ANY || AirportHelper.GetCombinedAirports(options.To).Contains(flight.To)) &&
+                options.DepartureDate == flight.DepartureDate).
                 OrderBy(flight => flight.Price);
 
             return bestFlights.AsQueryable();

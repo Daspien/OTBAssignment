@@ -9,7 +9,7 @@ namespace OTBAssignment.UnitTests
     {
 
         [Test]
-        public async Task HolidaySearch_WhenAskedForHolidayByCustomer1_ShouldReturnBestResultFirst()
+        public async Task HolidaySearch_WhenHavingOneResult_ShouldReturnBestResultFirst()
         {
             //Arrange
             var flightProvider = new JsonFlightsProvider();
@@ -21,12 +21,13 @@ namespace OTBAssignment.UnitTests
 
             //Assert
             result.Should().NotBeEmpty();
+            result.Should().HaveCount(1);
             result.First().Flight.Id.Should().Be(2);
             result.First().Hotel.Id.Should().Be(9);
         }
 
         [Test]
-        public async Task HolidaySearch_WhenAskedForHolidayByCustomer2_ShouldReturnBestResultFirst()
+        public async Task HolidaySearch_WhenHavingFourResults_ShouldReturnBestResultFirst()
         {
             //Arrange
             var flightProvider = new JsonFlightsProvider();
@@ -38,12 +39,13 @@ namespace OTBAssignment.UnitTests
 
             //Assert
             result.Should().NotBeEmpty();
+            result.Should().HaveCount(4);
             result.First().Flight.Id.Should().Be(6);
             result.First().Hotel.Id.Should().Be(5);
         }
 
         [Test]
-        public async Task HolidaySearch_WhenAskedForHolidayByCustomer3_ShouldReturnBestResultFirst()
+        public async Task HolidaySearch_AskingForAnyAirport_ShouldReturnBestResultFirst()
         {
             //Arrange
             var flightProvider = new JsonFlightsProvider();
@@ -55,6 +57,7 @@ namespace OTBAssignment.UnitTests
 
             //Assert
             result.Should().NotBeEmpty();
+            result.Should().HaveCount(1);
             result.First().Flight.Id.Should().Be(7);
             result.First().Hotel.Id.Should().Be(6);
         }
