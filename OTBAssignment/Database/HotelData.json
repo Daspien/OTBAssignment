@@ -20,7 +20,7 @@
     "name": "Sol Katmandu Park & Resort",
     "arrival date": "2023-06-15",
     "price_per_night": 59,
-    "local_airports": [ "РМI" ],
+    "local_airports": [ "PMI" ],
     "nights": 14
   },
   {
@@ -100,7 +100,7 @@
     "name": "Jumeirah Port Soller",
     "arrival_date": "2023-06-15",
     "price_per_night": 295,
-    "local_airports": [ "РMI" ],
+    "local_airports": [ "PMI" ],
     "nights": 10
   }
 ]

@@ -17,7 +17,7 @@ namespace OTBAssignment.Model.JsonModel
         public required decimal PricePerNight { get; set; }
 
         [JsonProperty("local_airports")]
-        public required IEnumerable<string> LocalAirports { get; set; }
+        public required IEnumerable<Airport> LocalAirports { get; set; }
 
         [JsonProperty("nights")]
         public required int Nights { get; set; }

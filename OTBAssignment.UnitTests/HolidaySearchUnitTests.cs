@@ -10,7 +10,7 @@ namespace OTBAssignment.UnitTests
         public async Task HolidaySearch_WhenAskedForHolidayByCustomer1_ShouldReturnBestResultFirst()
         {
             //Arrange
-            var holidaySearch = new HolidaySearch("MAN", "AGP", "2023/07/01", 7);
+            var holidaySearch = new HolidaySearch(Airport.MAN, Airport.AGP, new DateTime(2023, 07, 01), 7);
 
             //Act
             var result = await holidaySearch.GetResults();
@@ -25,7 +25,7 @@ namespace OTBAssignment.UnitTests
         public async Task HolidaySearch_WhenAskedForHolidayByCustomer2_ShouldReturnBestResultFirst()
         {
             //Arrange
-            var holidaySearch = new HolidaySearch("string_for_london_airports", "PMI", "2023/06/15", 10);
+            var holidaySearch = new HolidaySearch(Airport.LND, Airport.PMI, new DateTime(2023, 06, 15), 10);
 
             //Act
             var result = await holidaySearch.GetResults();
@@ -40,7 +40,7 @@ namespace OTBAssignment.UnitTests
         public async Task HolidaySearch_WhenAskedForHolidayByCustomer3_ShouldReturnBestResultFirst()
         {
             //Arrange
-            var holidaySearch = new HolidaySearch("string_for_any_airport", "LPA", "2022/11/10", 14);
+            var holidaySearch = new HolidaySearch(Airport.ANY, Airport.LPA, new DateTime(2022, 11, 10), 14);
 
             //Act
             var result = await holidaySearch.GetResults();

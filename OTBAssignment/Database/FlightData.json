@@ -19,7 +19,7 @@
     "id": 3,
     "airline": "Trans American Airlines",
     "from": "MAN",
-    "to": "PМІ",
+    "to": "PMI",
     "price": 170,
     "departure_date": "2023-06-15"
   },
@@ -35,7 +35,7 @@
     "id": 5,
     "airline": "Fresh Airways",
     "from": "MAN",
-    "to": "PМІ",
+    "to": "PMI",
     "price": 130,
     "departure_date": "2023-06-15"
   },
@@ -43,7 +43,7 @@
     "id": 6,
     "airline": "Fresh Airways",
     "from": "LGW",
-    "to": "PМІ",
+    "to": "PMI",
     "price": 75,
     "departure_date": "2023-06-15"
   },
@@ -51,7 +51,7 @@
     "id": 7,
     "airline": "Trans American Airlines",
     "from": "MAN",
-    "to": "LPА",
+    "to": "LPA",
     "price": 125,
     "departure_date": "2022-11-10"
   },
@@ -59,7 +59,7 @@
     "id": 8,
     "airline": "Fresh Airways",
     "from": "MAN",
-    "to": "LPА",
+    "to": "LPA",
     "price": 175,
     "departure_date": "2023-11-10"
   },

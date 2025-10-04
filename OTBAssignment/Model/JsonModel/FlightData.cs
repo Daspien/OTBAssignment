@@ -11,10 +11,10 @@ namespace OTBAssignment.Model.JsonModel
         public required string Airline { get; set; }
 
         [JsonProperty("from")]
-        public required string From { get; set; }
+        public required Airport From { get; set; }
 
         [JsonProperty("to")]
-        public required string To { get; set; }
+        public required Airport To { get; set; }
 
         [JsonProperty("price")]
         public required decimal Price { get; set; }
