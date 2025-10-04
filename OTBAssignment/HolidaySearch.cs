@@ -4,47 +4,40 @@ using OTBAssignment.Model.JsonModel;
 using Newtonsoft.Json.Converters;
 using OTBAssignment.Helpers;
 using System.Linq;
+using OTBAssignment.Model.Flights;
+using OTBAssignment.Model.Hotels;
 
 namespace OTBAssignment
 {
-    public class HolidaySearch : IHolidaySearch
+    public class HolidaySearch(IFlightProvider flightProvider, IHotelProvider hotelProvider) : IHolidaySearch
     {
-        private Airport DepartingFrom { get; set; }
-        private Airport TravelingTo { get; set; }
-        private DateTime DepartureDate { get; set; }
-        private short Duration { get; set; }
-
-        private readonly string FlightsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database", "FlightData.json");
-        private readonly string HotelsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database", "HotelData.json");
-
-        public HolidaySearch(Airport departingFrom, Airport travelingTo, DateTime departureDate, short duration)
-        {
-            DepartingFrom = departingFrom;
-            TravelingTo = travelingTo;
-            DepartureDate = departureDate;
-            Duration = duration;
-        }
-
-        public async Task<IEnumerable<HolidaySearchResult>> GetResults()
+        public async Task<IEnumerable<HolidaySearchResult>> GetResults(Airport departingFrom, Airport travelingTo, DateTime departureDate, short duration)
         {
             var results = new List<HolidaySearchResult>();
-            var options = new JsonSerializerSettings();
-            options.Converters.Add(new StringEnumConverter());
-            var flightJson = await File.ReadAllTextAsync(FlightsFilePath);
-            var flights = JsonConvert.DeserializeObject<List<FlightData>>(flightJson, options);
-            var hotelJson = await File.ReadAllTextAsync(HotelsFilePath);
-            var hotels = JsonConvert.DeserializeObject<List<HotelData>>(hotelJson, options);
-
-            var compatibleFlights = flights.Where(flight => AirportHelper.GetCombinedAirports(DepartingFrom).Contains(flight.From) && AirportHelper.GetCombinedAirports(TravelingTo).Contains(flight.To) && DepartureDate == flight.DepartureDate);
-            var compatibleHotels = hotels.Where(hotel => hotel.LocalAirports.Any(localAirport => AirportHelper.GetCombinedAirports(TravelingTo).Contains(localAirport)) && hotel.ArrivalDate == DepartureDate && hotel.Nights == Duration);
-
-            var bestFlights = compatibleFlights.OrderBy(flight => flight.Price);
-            var bestHotels = compatibleHotels.OrderBy(hotel => hotel.PricePerNight);
-
-            var holidaySearchResult = new HolidaySearchResult(bestHotels.First().PricePerNight*Duration, new FlightInfo(bestFlights.First().Id, bestFlights.First().From.ToString(), bestFlights.First().To.ToString()), new HotelInfo(bestHotels.First().Id, bestHotels.First().Name, (bestHotels.First().PricePerNight).ToString()));
+            var bestHotels = await hotelProvider.GetBestHotels(GetHotelOptions(travelingTo, departureDate, duration));
+            var bestFlights = await flightProvider.GetBestFlights(GetFlightOptions(departingFrom, travelingTo, departureDate));
+            var holidaySearchResult = new HolidaySearchResult(bestHotels.First().PricePerNight * duration, GetFlightInfo(bestFlights.First().Id, bestFlights.First().From, bestFlights.First().To), GetHotelInfo(bestHotels.First().Id, bestHotels.First().Name, bestHotels.First().PricePerNight));
             results.Add(holidaySearchResult);
             return results;
         }
 
+        private FlightInfo GetFlightInfo(int id, Airport from, Airport to)
+        {
+            return new FlightInfo(id, from.ToString(), to.ToString());
+        }
+        private HotelInfo GetHotelInfo(int id, string name, decimal price)
+        {
+            return new HotelInfo(id, name, price);
+        }
+
+        private HotelSearchOptions GetHotelOptions(Airport destination, DateTime departure, short duration)
+        {
+            return new HotelSearchOptions(destination, departure, duration);
+        }
+
+        private FlightSearchOptions GetFlightOptions(Airport from, Airport to, DateTime departure)
+        {
+            return new FlightSearchOptions(from, to, departure);
+        }
     }
 }

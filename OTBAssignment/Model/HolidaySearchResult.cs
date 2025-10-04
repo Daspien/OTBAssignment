@@ -1,4 +1,7 @@
-﻿namespace OTBAssignment.Model
+﻿using OTBAssignment.Model.Flights;
+using OTBAssignment.Model.Hotels;
+
+namespace OTBAssignment.Model
 {
     public class HolidaySearchResult
     {

@@ -20,7 +20,7 @@ namespace OTBAssignment.Model.JsonModel
         public required IEnumerable<Airport> LocalAirports { get; set; }
 
         [JsonProperty("nights")]
-        public required int Nights { get; set; }
+        public required short Nights { get; set; }
 
     }
 }

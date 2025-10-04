@@ -1,11 +1,11 @@
-﻿namespace OTBAssignment.Model
+﻿namespace OTBAssignment.Model.Hotels
 {
     public class HotelInfo
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Price { get; set; }
-        public HotelInfo(int id, string name, string price)
+        public decimal Price { get; set; }
+        public HotelInfo(int id, string name, decimal price)
         {
             Id = id;
             Name = name;

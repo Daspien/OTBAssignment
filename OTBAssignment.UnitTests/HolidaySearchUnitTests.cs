@@ -1,5 +1,7 @@
 using FluentAssertions;
 using OTBAssignment.Model;
+using OTBAssignment.Model.Flights;
+using OTBAssignment.Model.Hotels;
 
 namespace OTBAssignment.UnitTests
 {
@@ -10,10 +12,12 @@ namespace OTBAssignment.UnitTests
         public async Task HolidaySearch_WhenAskedForHolidayByCustomer1_ShouldReturnBestResultFirst()
         {
             //Arrange
-            var holidaySearch = new HolidaySearch(Airport.MAN, Airport.AGP, new DateTime(2023, 07, 01), 7);
+            var flightProvider = new JsonFlightsProvider();
+            var hotelProvider = new JsonHotelProvider();
+            var holidaySearch = new HolidaySearch(flightProvider, hotelProvider);
 
             //Act
-            var result = await holidaySearch.GetResults();
+            var result = await holidaySearch.GetResults(Airport.MAN, Airport.AGP, new DateTime(2023, 07, 01), 7);
 
             //Assert
             result.Should().NotBeEmpty();
@@ -25,10 +29,12 @@ namespace OTBAssignment.UnitTests
         public async Task HolidaySearch_WhenAskedForHolidayByCustomer2_ShouldReturnBestResultFirst()
         {
             //Arrange
-            var holidaySearch = new HolidaySearch(Airport.LND, Airport.PMI, new DateTime(2023, 06, 15), 10);
+            var flightProvider = new JsonFlightsProvider();
+            var hotelProvider = new JsonHotelProvider();
+            var holidaySearch = new HolidaySearch(flightProvider, hotelProvider);
 
             //Act
-            var result = await holidaySearch.GetResults();
+            var result = await holidaySearch.GetResults(Airport.LND, Airport.PMI, new DateTime(2023, 06, 15), 10);
 
             //Assert
             result.Should().NotBeEmpty();
@@ -40,10 +46,12 @@ namespace OTBAssignment.UnitTests
         public async Task HolidaySearch_WhenAskedForHolidayByCustomer3_ShouldReturnBestResultFirst()
         {
             //Arrange
-            var holidaySearch = new HolidaySearch(Airport.ANY, Airport.LPA, new DateTime(2022, 11, 10), 14);
+            var flightProvider = new JsonFlightsProvider();
+            var hotelProvider = new JsonHotelProvider();
+            var holidaySearch = new HolidaySearch(flightProvider, hotelProvider);
 
             //Act
-            var result = await holidaySearch.GetResults();
+            var result = await holidaySearch.GetResults(Airport.ANY, Airport.LPA, new DateTime(2022, 11, 10), 14);
 
             //Assert
             result.Should().NotBeEmpty();
