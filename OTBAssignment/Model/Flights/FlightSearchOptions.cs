@@ -2,9 +2,9 @@
 {
     public  class FlightSearchOptions
     {
-        public Airport From { get; set; }
-        public Airport To { get; set; }
-        public DateTime DepartureDate { get; set; }
+        public Airport From { get; }
+        public Airport To { get; }
+        public DateTime DepartureDate { get; }
 
         public FlightSearchOptions(Airport from, Airport to, DateTime departure)
         {

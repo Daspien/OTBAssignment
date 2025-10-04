@@ -2,9 +2,9 @@
 {
     public class HotelSearchOptions
     {
-        public Airport Destination { get; set; }
-        public DateTime DepartureDate { get; set; }
-        public short Duration { get; set; }
+        public Airport Destination { get; }
+        public DateTime DepartureDate { get; }
+        public short Duration { get; }
 
         public HotelSearchOptions(Airport destination, DateTime departure, short duration)
         {

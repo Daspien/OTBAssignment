@@ -5,11 +5,13 @@
         public int Id { get; }
         public string DepartingFrom { get; }
         public string TravelingTo { get; }
-        public FlightInfo(int id, string departingFrom, string travelingTo)
+        public decimal Price { get; }
+        public FlightInfo(int id, string departingFrom, string travelingTo, decimal price)
         {
             Id = id;
             DepartingFrom = departingFrom;
             TravelingTo = travelingTo;
+            Price = price;
         }
     }
 }

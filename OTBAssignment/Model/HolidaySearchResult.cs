@@ -5,9 +5,9 @@ namespace OTBAssignment.Model
 {
     public class HolidaySearchResult
     {
-        public decimal TotalPrice { get; set; }
-        public FlightInfo Flight { get; set; }
-        public HotelInfo Hotel { get; set; }
+        public decimal TotalPrice { get; }
+        public FlightInfo Flight { get; }
+        public HotelInfo Hotel { get; }
 
         public HolidaySearchResult(decimal totalPrice, FlightInfo flight, HotelInfo hotel)
         {

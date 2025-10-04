@@ -21,20 +21,22 @@ namespace OTBAssignment
             {
                 foreach (var flight in flights)
                 {
-                    var holidaySearchResult = new HolidaySearchResult(hotel.PricePerNight * duration, GetFlightInfo(flight.Id, flight.From, flight.To), GetHotelInfo(hotel.Id, hotel.Name, hotel.PricePerNight));
+                    var holidaySearchResult = new HolidaySearchResult(hotel.PricePerNight * duration + flight.Price,
+                        GetFlightInfo(flight.Id, flight.From, flight.To, flight.Price),
+                        GetHotelInfo(hotel.Id, hotel.Name, hotel.PricePerNight, hotel.PricePerNight * duration));
                     results.Add(holidaySearchResult);
                 }
             }
             return Task.FromResult(results.AsEnumerable());
         }
 
-        private FlightInfo GetFlightInfo(int id, Airport from, Airport to)
+        private FlightInfo GetFlightInfo(int id, Airport from, Airport to, decimal price)
         {
-            return new FlightInfo(id, from.ToString(), to.ToString());
+            return new FlightInfo(id, from.ToString(), to.ToString(), price);
         }
-        private HotelInfo GetHotelInfo(int id, string name, decimal price)
+        private HotelInfo GetHotelInfo(int id, string name, decimal price, decimal totalPrice)
         {
-            return new HotelInfo(id, name, price);
+            return new HotelInfo(id, name, price, totalPrice);
         }
 
         private HotelSearchOptions GetHotelOptions(Airport destination, DateTime departure, short duration)

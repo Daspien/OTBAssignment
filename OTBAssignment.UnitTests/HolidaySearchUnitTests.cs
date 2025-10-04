@@ -7,6 +7,32 @@ namespace OTBAssignment.UnitTests
 {
     public class HolidaySearchUnitTests
     {
+        [Test]
+        public async Task HolidaySearch_WhenHavingResults_ShouldGiveAllData()
+        {
+            //Arrange
+            var flightProvider = new JsonFlightsProvider();
+            var hotelProvider = new JsonHotelProvider();
+            var holidaySearch = new HolidaySearch(flightProvider, hotelProvider);
+
+            //Act
+            var result = await holidaySearch.GetResults(Airport.MAN, Airport.AGP, new DateTime(2023, 07, 01), 7);
+
+            //Assert
+            result.Should().NotBeEmpty();
+            result.Should().HaveCount(1);
+            // 83*7+245 = 826
+            result.First().TotalPrice.Should().Be(826);
+            result.First().Flight.Id.Should().Be(2);
+            result.First().Flight.DepartingFrom.Should().Be("MAN");
+            result.First().Flight.TravelingTo.Should().Be("AGP");
+            result.First().Flight.Price.Should().Be(245);
+            result.First().Hotel.Id.Should().Be(9);
+            result.First().Hotel.Name.Should().Be("Nh Malaga");
+            result.First().Hotel.PricePerNight.Should().Be(83);
+            // 83*7 = 581
+            result.First().Hotel.TotalPrice.Should().Be(581);
+        }
 
         [Test]
         public async Task HolidaySearch_WhenHavingOneResult_ShouldReturnBestResultFirst()
