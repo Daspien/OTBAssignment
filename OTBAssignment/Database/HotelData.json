@@ -18,7 +18,7 @@
   {
     "id": 3,
     "name": "Sol Katmandu Park & Resort",
-    "arrival date": "2023-06-15",
+    "arrival_date": "2023-06-15",
     "price_per_night": 59,
     "local_airports": [ "PMI" ],
     "nights": 14
