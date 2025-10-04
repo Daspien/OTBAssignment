@@ -16,7 +16,7 @@
     "departure_date": "2023-07-01"
   },
   {
-    "id": "3.",
+    "id": 3,
     "airline": "Trans American Airlines",
     "from": "MAN",
     "to": "PМІ",
