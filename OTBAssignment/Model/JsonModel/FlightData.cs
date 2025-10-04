@@ -1,25 +1,25 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace OTBAssignment.Model.JsonModel
 {
     public class FlightData
     {
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public required int Id { get; set; }
 
-        [JsonPropertyName("airline")]
+        [JsonProperty("airline")]
         public required string Airline { get; set; }
 
-        [JsonPropertyName("from")]
+        [JsonProperty("from")]
         public required string From { get; set; }
 
-        [JsonPropertyName("to")]
+        [JsonProperty("to")]
         public required string To { get; set; }
 
-        [JsonPropertyName("price")]
+        [JsonProperty("price")]
         public required decimal Price { get; set; }
 
-        [JsonPropertyName("departure_date")]
+        [JsonProperty("departure_date")]
         public required DateTime DepartureDate { get; set; }
     }
 }

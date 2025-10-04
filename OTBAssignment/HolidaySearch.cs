@@ -27,7 +27,7 @@ namespace OTBAssignment
             var results = new List<HolidaySearchResult>();
             var flightJson = await File.ReadAllTextAsync(FlightsFilePath);
             var flights = JsonConvert.DeserializeObject<List<FlightData>>(flightJson);
-            var hotelJson = await File.ReadAllTextAsync(FlightsFilePath);
+            var hotelJson = await File.ReadAllTextAsync(HotelsFilePath);
             var hotels = JsonConvert.DeserializeObject<List<HotelData>>(hotelJson);
             var holidaySearchResult = new HolidaySearchResult("0", new FlightInfo(flights.First().Id, flights.First().From, flights.First().To), new HotelInfo(hotels.First().Id, hotels.First().Name, (hotels.First().PricePerNight * Duration).ToString()));
             results.Add(holidaySearchResult);
